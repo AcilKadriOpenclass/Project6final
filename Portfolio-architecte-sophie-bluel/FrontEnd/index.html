@@ -44,12 +44,21 @@
 	<section id="portfolio">
 		<div class="modaleFlex">
 			<h2>Mes Projets</h2>
-			<dialog>
-				<button autofocus>Fermer</button>
-				<p>Cette boîte de dialogue modale a un arrière-plan festif !</p>
-			  </dialog>
-			  <button class="buttonModale"><i class="fa-regular fa-pen-to-square"></i> modifier</button>
+			<button class="buttonModale" id="editButton">
+				<i class="fa-regular fa-pen-to-square"></i> Modifier
+			</button>
 		</div>
+		<div id="overlay"></div>
+		<dialog id="modal">
+			<p class="modal-text">Galerie photo</p>
+			<button id="closeModal"><i class="fa fa-times"></i></button>
+		
+			<div id="modalContent">
+				<div class="gallerymodale"></div> 
+			</div>
+			<div class="separateur"></div>
+			<button id="toggleFormButton" class="buttonAjouter">Ajouter une photo</button>
+		</dialog>
 		<div class="filters">
 			<button class="filter-btn" id="Tous">Tous</button>
 			<button class="filter-btn" id="Objets">Objets</button>

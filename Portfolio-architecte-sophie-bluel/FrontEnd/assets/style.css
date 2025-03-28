@@ -308,14 +308,60 @@ footer nav ul {
 	z-index: 9999;
 }
 
+/* Tout ce qui concerne ma modale */
+
 .modaleFlex {
 	display: flex;
 	flex-direction: row;
-	justify-content: center; /* Centre horizontalement */
-	align-items: baseline; /* Centre verticalement */
+	justify-content: center;
+	align-items: baseline;
 	gap: 30px;
 }
+/* Quand la modale est ouverte */
+#modal.show {
+    width: 630px;
+    height: 688px;
+	border-radius: 10px;
+	border: none;
+}
+/* pour gérer la ou s'affiche mes images */
+#modal .gallerymodale {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 0 105px;
+}
 
+#modal .gallerymodale figure {
+    margin: 0;
+	position: relative;
+    width: calc(20% - 5px);
+	margin-bottom: 29px;
+}
+
+#modal .gallerymodale img {
+    width: 100%;
+    height: auto;
+}
+
+#modal .separateur {
+    width: 67%;
+    height: 1px;
+    background-color: #B3B3B3;
+	text-align: center;
+	margin: 30px auto;
+}
+
+.modal-text {
+	font-family: 'Work Sans';
+	font-size: 26px;
+	text-align: center;
+	color: #000000;
+	margin-top: 60px;
+	margin-bottom: 46px;
+}
+/* Le bouton modifier */
 .buttonModale {
 	all: unset;
 	color: black;
@@ -325,7 +371,41 @@ footer nav ul {
 	border: none;
 	cursor: pointer;
 }
+/* Fermer */
+#closeModal {
+	position: absolute;
+	top: 25px;
+	right: 35px;
+	background: none;
+	border: none;
+	font-size: 24px;
+	color: black;
+	cursor: pointer;
+}
+/* Ajouter une photoo */
+.buttonAjouter {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	width: 237px;
+	height: 36px;
+	text-align: center;
+	border-radius: 60px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	display: block;
+    margin: 0 auto;
+}
 
-dialog {
-	
+/* Pour supprimer */
+.deleteButton {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	border: none;
+	background-color: #000000;
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+	border-radius: 3px;
 }

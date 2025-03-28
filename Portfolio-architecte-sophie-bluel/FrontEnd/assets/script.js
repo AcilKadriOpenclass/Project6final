@@ -36,7 +36,7 @@ async function init() {
     displayGallery(filteredWorks, ".gallery");
   });
 }
-
+/*********************pour afficher les images du tableau *******************/
 function displayGallery(listeOfWorks, placeGallery) {
   const gallery = document.querySelector(placeGallery);
   gallery.innerHTML = "";
@@ -58,7 +58,7 @@ function displayGallery(listeOfWorks, placeGallery) {
     gallery.appendChild(figureGallery);
   }
 }
-
+/* filtrer */
 function createFilters(listeOfWorks, placeFilters) {
   let tableauRetour = [];
   for (let i = 0; i < listeOfWorks.length; i++) {
@@ -68,7 +68,7 @@ function createFilters(listeOfWorks, placeFilters) {
   }
   return tableauRetour;
 }
-
+/***********************************page de connexion ************************************/
 function envoyerEmailEtMdp() {
   const informationMdpEmail = document.getElementById("information");
 
@@ -122,41 +122,99 @@ async function getEmailMdp(email, mdp) {
 function updateLoginLogout() {
   const boutonLoginLogout = document.getElementById("changeLoginLogout");
   const modeEdition = document.getElementById("modeEdition");
+  const editButton = document.getElementById("editButton");
 
-  // Si un token est présent, on affiche "logout"
   if (localStorage.getItem("token")) {
     boutonLoginLogout.textContent = "logout";
     boutonLoginLogout.href = "#";
-    modeEdition.style.display = "block"; // Affiche la barre "Mode Édition"
+    modeEdition.style.display = "block";
 
     boutonLoginLogout.addEventListener("click", () => {
-      localStorage.removeItem("token"); // Supprime le token
-      window.location.href = "index.html"; // Reste sur index.html après déconnexion
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+      editButton.style.display = "block";
     });
   } else {
     boutonLoginLogout.textContent = "login";
-    boutonLoginLogout.href = "pagelogin.html"; // Renvoie vers la page de login
-    modeEdition.style.display = "none"; // Cache la barre "Mode Édition"
+    boutonLoginLogout.href = "pagelogin.html";
+    editButton.style.display = "none";
+    modeEdition.style.display = "none";
   }
 }
-function ouvrirModale() {
-  const dialog = document.querySelector("dialog");
-  const showButton = document.querySelector("dialog + button");
-  const closeButton = document.querySelector("dialog button");
 
-  // Le bouton "Afficher la fenêtre" ouvre le dialogue
-  showButton.addEventListener("click", () => {
-    dialog.showModal();
-  });
-
-  // Le bouton "Fermer" ferme le dialogue
-  closeButton.addEventListener("click", () => {
-    dialog.close();
-  });
-}
+/*****************ici c'est la modale et toute les fonctions associé *******************/
 
 document.addEventListener("DOMContentLoaded", function () {
-  ouvrirModale();
+  const editButton = document.getElementById("editButton");
+  const modal = document.getElementById("modal");
+  const closeModal = document.getElementById("closeModal");
+
+  editButton.addEventListener("click", async () => {
+    modal.classList.add("show");
+    modal.showModal();
+
+    const works = await getWorks();
+    console.log("Projets récupérés pour la modale :", works);
+    displayGalleryInModal(works);
+  });
+
+  closeModal.addEventListener("click", () => {
+    modal.classList.remove("show");
+    modal.close();
+  });
+});
+/*********** cette fonction a le meme fonctionnement que displayGallery*****/
+/***********avec les boutons pour supprimer en + *****/
+function displayGalleryInModal(listeOfWorks) {
+  const modalGallery = document.getElementsByClassName("gallerymodale")[0];
+  modalGallery.innerHTML = "";
+
+  for (let i = 0; i < listeOfWorks.length; i++) {
+    let figureGallery = document.createElement("figure");
+
+    let imgGallery = document.createElement("img");
+    imgGallery.src = listeOfWorks[i].imageUrl;
+    imgGallery.alt = listeOfWorks[i].title;
+
+    let deleteButton = document.createElement("button");
+    deleteButton.classList.add("deleteButton");
+    deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+
+    deleteButton.addEventListener("click", async () => {
+      await deleteImage(listeOfWorks[i].id);
+    });
+
+    figureGallery.appendChild(deleteButton);
+    figureGallery.appendChild(imgGallery);
+    modalGallery.appendChild(figureGallery);
+  }
+}
+/************ fonction pour supprimer avec l'id **********/
+async function deleteImage(id) {
+  const token = localStorage.getItem("token");
+  const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.ok) {
+    const works = await getWorks();
+    displayGalleryInModal(works);
+  } else {
+    alert("Erreur lors de la suppression de l'image.");
+  }
+}
+
+/************Ajouter des images ***************/
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleFormButton = document.getElementById();
+  const modalContent = document.getElementById("modalContent");
+});
+/* lancer mes fonctions */
+document.addEventListener("DOMContentLoaded", function () {
   updateLoginLogout();
   init();
   envoyerEmailEtMdp();
