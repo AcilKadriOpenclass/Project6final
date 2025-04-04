@@ -50,16 +50,50 @@
 		</div>
 		<div id="overlay"></div>
 		<dialog id="modal">
-			<p class="modal-text">Galerie photo</p>
 			<button id="closeModal"><i class="fa fa-times"></i></button>
-		
-			<div id="modalContent">
-				<div class="gallerymodale"></div> 
+			
+			<!-- Vue de la galerie -->
+			<div id="gallery-view">
+				<p class="modal-text">Galerie photo</p>
+				<div id="modalContent">
+					<div class="gallerymodale"></div>
+				</div>
+				<div class="separateur"></div>
+				<button id="toggleFormButton" class="buttonAjouter">Ajouter une photo</button>
 			</div>
-			<div class="separateur"></div>
-			<button id="toggleFormButton" class="buttonAjouter">Ajouter une photo</button>
+			
+			<!-- Vue du formulaire d'ajout -->
+			<div id="add-form-view" style="display: none;">
+				<button id="backToGallery" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></button>
+				<p class="modal-text">Ajout photo</p>
+				<form id="uploadForm" enctype="multipart/form-data">
+					<div class="image-upload-container">
+						<i class="fa-regular fa-image"></i>
+						<label for="imageUpload" class="custom-file-upload">+ Ajouter photo</label>
+						<input type="file" id="imageUpload" name="image" accept="image/*" required>
+						<p>jpg, png : 4Mo max</p>
+						<div id="imagePreview"></div>
+					</div>
+					<div class="form-group">
+						<label for="title">Titre</label>
+						<input type="text" id="title" name="title" required>
+					</div>
+					<div class="form-group">
+						<label for="category">Catégorie</label>
+						<select id="category" name="category" required>
+							<option value="">Sélectionner une catégorie</option>
+							<option value="1">Objets</option>
+							<option value="2">Appartements</option>
+							<option value="3">Hôtels & restaurants</option>
+						</select>
+					</div>
+					<div class="form-submit">
+						<button type="submit" class="buttonValider">Valider</button>
+					</div>
+				</form>
+			</div>
 		</dialog>
-		<div class="filters">
+		<div class="filters" id="filters">
 			<button class="filter-btn" id="Tous">Tous</button>
 			<button class="filter-btn" id="Objets">Objets</button>
 			<button class="filter-btn" id="Appartements">Appartements</button>
