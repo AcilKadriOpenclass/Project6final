@@ -107,7 +107,6 @@ function envoyerEmailEtMdp() {
     // vérifier si connexion réussie
     if (response !== null && response.token) {
       console.log("Connexion réussie");
-      alert("Connexion réussie !");
       localStorage.setItem("token", response.token); // sauvegarder le token
       window.location.href = "index.html"; // rediriger vers la page d'accueil
     } else {
@@ -341,7 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Prévisualisation simplifiée de l'image
+  // Prévisualisation de l'image
   document
     .getElementById("imageUpload")
     ?.addEventListener("change", function () {
@@ -364,10 +363,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-  // Soumission simplifiée du formulaire
+  // Soumission du formulaire
   document
     .getElementById("uploadForm")
-    ?.addEventListener("submit", async function (e) {
+    .addEventListener("submit", async function (e) {
       e.preventDefault();
       console.log("Ajout d'un nouveau projet");
 
